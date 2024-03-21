@@ -1,4 +1,4 @@
-# C_Snake_game
+# Shell
 
 ## Description
 
