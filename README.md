@@ -2,7 +2,7 @@
 
 ## Description
 
-## How to play
+## Features
 
 ## How to use
  
