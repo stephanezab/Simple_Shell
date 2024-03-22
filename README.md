@@ -1,8 +1,8 @@
-# C_Snake_game
+# Shell
 
 ## Description
 
-## How to play
+## Features
 
 ## How to use
  
