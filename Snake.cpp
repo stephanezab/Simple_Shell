@@ -3,7 +3,8 @@
 using namespace std;
 
 int main () {
-    
-    cout<<"hello Steph"<<"\n";
+    int a = 2;
+    int *p = &a;
+    cout<<"num:"<<*p <<"\n";
     return 0;
 }
