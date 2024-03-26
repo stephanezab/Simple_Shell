@@ -1,17 +1,20 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <cstdlib>
 
 // Function prototypes
 void help();
 void echo(const std::string& input);
 void exitCLI();
+void date();
 
 // Command map associating command strings with their corresponding functions
 std::map<std::string, void (*)(const std::string&)> commands = {
     {"help", [](const std::string&){ help(); }},
     {"echo", echo},
-    {"exit", [](const std::string&){ exitCLI(); }}
+    {"exit", [](const std::string&){ exitCLI(); }},
+    {"date", [](const std::string&){ date(); }}
     
     // Add more commands here
 };
@@ -32,6 +35,7 @@ int main() {
 
         // Execute the command if it is found
         auto commandIt = commands.find(command);
+        std::cout << ""<<"\n";
         if (commandIt != commands.end()) {
             commandIt->second(argument);
         } else {
@@ -57,3 +61,9 @@ void exitCLI() {
     std::cout << "Exiting CLI.\n";
     exit(0);
 }
+
+void date(){
+    system("date");
+}
+
+
