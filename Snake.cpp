@@ -11,6 +11,8 @@ void exitCLI();
 std::map<std::string, void (*)(const std::string&)> commands = {
     {"help", [](const std::string&){ help(); }},
     {"echo", echo},
+    {"exit", [](const std::string&){ exitCLI(); }}
+    
     // Add more commands here
 };
 
@@ -26,6 +28,7 @@ int main() {
         size_t spaceIndex = inputLine.find(' ');
         std::string command = inputLine.substr(0, spaceIndex);
         std::string argument = spaceIndex != std::string::npos ? inputLine.substr(spaceIndex + 1) : "";
+        
 
         // Execute the command if it is found
         auto commandIt = commands.find(command);
