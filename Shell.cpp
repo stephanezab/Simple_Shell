@@ -8,13 +8,15 @@ void help();
 void echo(const std::string& input);
 void exitCLI();
 void date();
+void PWD();
 
 // Command map associating command strings with their corresponding functions
 std::map<std::string, void (*)(const std::string&)> commands = {
     {"help", [](const std::string&){ help(); }},
     {"echo", echo},
     {"exit", [](const std::string&){ exitCLI(); }},
-    {"date", [](const std::string&){ date(); }}
+    {"date", [](const std::string&){ date(); }},
+    {"pwd", [](const std::string&){ PWD(); }}
     
     // Add more commands here
 };
@@ -66,4 +68,6 @@ void date(){
     system("date");
 }
 
-
+void PWD(){
+    system("pwd");
+}
