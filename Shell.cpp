@@ -6,6 +6,8 @@
 #include <filesystem>
 #include <dirent.h>
 #include <sys/types.h>
+#include <unistd.h>
+
 
 
 // Function prototypes
@@ -16,6 +18,7 @@ void date();
 void PWD();
 void clear();
 void LS();
+void CD(const std::string& input);
 
 // Command map associating command strings with their corresponding functions
 std::map<std::string, void (*)(const std::string&)> commands = {
@@ -25,7 +28,9 @@ std::map<std::string, void (*)(const std::string&)> commands = {
     {"date", [](const std::string&){ date(); }},
     {"pwd", [](const std::string&){ PWD(); }},
     {"clear", [](const std::string&){ clear(); }},
-    {"ls", [](const std::string&){ LS(); }}
+    {"ls", [](const std::string&){ LS(); }},
+    {"cd", CD}
+
     
     // Add more commands here
 };
@@ -36,10 +41,12 @@ int main() {
 
     std::string inputLine;
     std::cout << "Simple CLI. Type 'help' for a list of commands.\n";
-    std::filesystem::path cwd = std::filesystem::current_path();
+   
+    
 
     while (true) {
-        std::cout << ">> ";
+        std::filesystem::path cwd = std::filesystem::current_path();
+        std::cout <<cwd << ">> ";
         std::getline(std::cin, inputLine);
 
         // Find the first space to separate the command from its arguments
@@ -110,4 +117,9 @@ void LS(){
         }
     }
 
+}
+
+void CD(const std::string& input){
+    
+    chdir(input.c_str());
 }
