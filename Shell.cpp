@@ -50,7 +50,7 @@ int main() {
 
         // Execute the command if it is found
         auto commandIt = commands.find(command);
-        std::cout << ""<<"\n";
+        
         if (commandIt != commands.end()) {
             commandIt->second(argument);
         } else {
@@ -67,7 +67,9 @@ void help() {
               << "echo [text]   - Echo the input text\n"
               << "date          - Show the current working directory\n"
               << "pwd           - Show the current path\n"
+              << "ls            - Show all the files in the current path\n"
               << "exit          - Exit the CLI\n";
+
 }
 
 void echo(const std::string& input) {
@@ -92,15 +94,19 @@ void clear(){
 }
 
 void LS(){
-    DIR *dp;
-    dirent *d;
+    DIR *dp;    // holds current directory
+    dirent *d;  // holds the directory and file info inside current directory 
     std::filesystem::path cwd = std::filesystem::current_path();
     std::string cwdString = cwd.string(); // Convert path to string
 
 
     if(dp = opendir(cwdString.c_str())){
+        // read directory dp and send info to d
         while(d = readdir(dp)){
-            std::cout<<d->d_name<<"\n";
+            if (d->d_name[0] != '.' ){
+                std::cout<<d->d_name<<"\n";
+            } 
+            
         }
     }
 
