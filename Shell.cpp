@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <cstdlib>
+#include <filesystem>
 
 // Function prototypes
 void help();
@@ -9,6 +10,7 @@ void echo(const std::string& input);
 void exitCLI();
 void date();
 void PWD();
+void clear();
 
 // Command map associating command strings with their corresponding functions
 std::map<std::string, void (*)(const std::string&)> commands = {
@@ -16,17 +18,22 @@ std::map<std::string, void (*)(const std::string&)> commands = {
     {"echo", echo},
     {"exit", [](const std::string&){ exitCLI(); }},
     {"date", [](const std::string&){ date(); }},
-    {"pwd", [](const std::string&){ PWD(); }}
+    {"pwd", [](const std::string&){ PWD(); }},
+    {"clear", [](const std::string&){ clear(); }}
     
     // Add more commands here
 };
 
 int main() {
+    
+    system("clear"); // to clear the main shell 
+
     std::string inputLine;
     std::cout << "Simple CLI. Type 'help' for a list of commands.\n";
+    std::filesystem::path cwd = std::filesystem::current_path();
 
     while (true) {
-        std::cout << "> ";
+        std::cout << ">> ";
         std::getline(std::cin, inputLine);
 
         // Find the first space to separate the command from its arguments
@@ -52,6 +59,8 @@ void help() {
     std::cout << "Available commands:\n"
               << "help          - Show this help message\n"
               << "echo [text]   - Echo the input text\n"
+              << "date          - Show the current working directory\n"
+              << "pwd           - Show the current path\n"
               << "exit          - Exit the CLI\n";
 }
 
@@ -70,4 +79,8 @@ void date(){
 
 void PWD(){
     system("pwd");
+}
+
+void clear(){
+    system("clear");
 }
