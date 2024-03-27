@@ -2,7 +2,11 @@
 #include <string>
 #include <map>
 #include <cstdlib>
+
 #include <filesystem>
+#include <dirent.h>
+#include <sys/types.h>
+
 
 // Function prototypes
 void help();
@@ -11,6 +15,7 @@ void exitCLI();
 void date();
 void PWD();
 void clear();
+void LS();
 
 // Command map associating command strings with their corresponding functions
 std::map<std::string, void (*)(const std::string&)> commands = {
@@ -19,13 +24,14 @@ std::map<std::string, void (*)(const std::string&)> commands = {
     {"exit", [](const std::string&){ exitCLI(); }},
     {"date", [](const std::string&){ date(); }},
     {"pwd", [](const std::string&){ PWD(); }},
-    {"clear", [](const std::string&){ clear(); }}
+    {"clear", [](const std::string&){ clear(); }},
+    {"ls", [](const std::string&){ LS(); }}
     
     // Add more commands here
 };
 
 int main() {
-    
+
     system("clear"); // to clear the main shell 
 
     std::string inputLine;
@@ -83,4 +89,19 @@ void PWD(){
 
 void clear(){
     system("clear");
+}
+
+void LS(){
+    DIR *dp;
+    dirent *d;
+    std::filesystem::path cwd = std::filesystem::current_path();
+    std::string cwdString = cwd.string(); // Convert path to string
+
+
+    if(dp = opendir(cwdString.c_str())){
+        while(d = readdir(dp)){
+            std::cout<<d->d_name<<"\n";
+        }
+    }
+
 }
