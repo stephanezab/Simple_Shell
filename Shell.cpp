@@ -122,4 +122,9 @@ void LS(){
 void CD(const std::string& input){
     
     chdir(input.c_str());
+    
+}
+
+void cat(const std::string& input){
+    
 }
