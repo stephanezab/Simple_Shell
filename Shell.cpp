@@ -20,7 +20,8 @@ void exitCLI();
 void date();
 void PWD();
 void clear();
-void LS();
+//void LS();
+void LS(const std::string &input);
 void CD(const std::string& input);
 void cat(const std::string& input);
 
@@ -32,7 +33,8 @@ std::map<std::string, void (*)(const std::string&)> commands = {
     {"date", [](const std::string&){ date(); }},
     {"pwd", [](const std::string&){ PWD(); }},
     {"clear", [](const std::string&){ clear(); }},
-    {"ls", [](const std::string&){ LS(); }},
+    
+    {"ls", LS},
     {"cd", CD},
     {"cat", cat}
 
@@ -85,7 +87,7 @@ void execute_command(const std::string& inputLine){
             std::cout << "Unknown command. Type 'help' for a list of commands.\n";
         }
     }
-    else if (index != std::string::npos){
+    else if (index != std::string::npos){ // fix this today
         std::string line1 = inputLine.substr(0, index);
         std::string line2 = inputLine.substr(index + 3);
 
@@ -133,23 +135,53 @@ void clear(){
     system("clear");
 }
 
-void LS(){
-    DIR *dp;    // holds current directory
-    dirent *d;  // holds the directory and file info inside current directory 
-    std::filesystem::path cwd = std::filesystem::current_path();
-    std::string cwdString = cwd.string(); // Convert path to string
+// void LS(){
+//     DIR *dp;    // holds current directory
+//     dirent *d;  // holds the directory and file info inside current directory 
+//     std::filesystem::path cwd = std::filesystem::current_path();
+//     std::string cwdString = cwd.string(); // Convert path to string
 
 
-    if(dp = opendir(cwdString.c_str())){
-        // read directory dp and send info to d
-        while(d = readdir(dp)){
-            if (d->d_name[0] != '.' ){
-                std::cout<<d->d_name<<"\n";
-            } 
+//     if(dp = opendir(cwdString.c_str())){
+//         // read directory dp and send info to d
+//         while(d = readdir(dp)){
+//             if (d->d_name[0] != '.' ){
+//                 std::cout<<d->d_name<<"\n";
+//             } 
             
-        }
-    }
+//         }
+//     }
 
+// }
+
+void LS(const std::string &input){
+    
+
+    pid_t pid = fork(); // Create a new process
+
+    if (pid == -1) {
+        // If fork() returns -1, an error occurred
+        std::cerr << "Fork failed" << std::endl;
+        exit(1);
+    } else if (pid == 0) {
+        // Child process
+        // Execute the command using execvp
+        char* argv[] = {"ls", nullptr};
+    
+         execvp("ls", const_cast<char* const*>(argv));
+
+        // If execvp returns, it means an error occurred
+        std::cerr << "Error executing execvp" << std::endl;
+        exit(EXIT_FAILURE); // Exit the child process with an error code
+    } else {
+        // Parent process
+        int status;
+        waitpid(pid, &status, 0); // Wait for the child process to finish
+
+        // if (WIFEXITED(status)) {
+        //     std::cout << "Child process exited with code " << WEXITSTATUS(status) << std::endl;
+        // }
+    }
 }
 
 void CD(const std::string& input){
