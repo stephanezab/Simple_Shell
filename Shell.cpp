@@ -13,6 +13,7 @@
 
 
 // Function prototypes
+void execute_command(const std::string& inputLine);
 void help();
 void echo(const std::string& input);
 void exitCLI();
@@ -47,29 +48,34 @@ int main() {
     std::cout << "Simple CLI. Type 'help' for a list of commands.\n";
    
     
-
     while (true) {
         std::filesystem::path cwd = std::filesystem::current_path();
         std::cout <<cwd << ">> ";
         std::getline(std::cin, inputLine);
 
         // Find the first space to separate the command from its arguments
-        size_t spaceIndex = inputLine.find(' ');
-        std::string command = inputLine.substr(0, spaceIndex);
-        std::string argument = spaceIndex != std::string::npos ? inputLine.substr(spaceIndex + 1) : "";
+        execute_command(inputLine);
         
-
-        // Execute the command if it is found
-        auto commandIt = commands.find(command);
-        
-        if (commandIt != commands.end()) {
-            commandIt->second(argument);
-        } else {
-            std::cout << "Unknown command. Type 'help' for a list of commands.\n";
-        }
     }
 
     return 0;
+}
+
+void execute_command(const std::string& inputLine){
+    size_t spaceIndex = inputLine.find(' ');
+    std::string command = inputLine.substr(0, spaceIndex);
+    std::string argument = spaceIndex != std::string::npos ? inputLine.substr(spaceIndex + 1) : "";
+        
+
+        // Execute the command if it is found
+    auto commandIt = commands.find(command);
+        
+    if (commandIt != commands.end()) {
+            commandIt->second(argument);
+    } else {
+            std::cout << "Unknown command. Type 'help' for a list of commands.\n";
+    }
+
 }
 
 void help() {
