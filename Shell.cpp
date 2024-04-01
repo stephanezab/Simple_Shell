@@ -50,11 +50,13 @@ int main() {
     
     while (true) {
         std::filesystem::path cwd = std::filesystem::current_path();
-        std::cout <<cwd << ">> ";
+        std::cout << ">> ";
         std::getline(std::cin, inputLine);
 
+        
         // Find the first space to separate the command from its arguments
         execute_command(inputLine);
+        
         
     }
 
@@ -62,19 +64,37 @@ int main() {
 }
 
 void execute_command(const std::string& inputLine){
-    size_t spaceIndex = inputLine.find(' ');
-    std::string command = inputLine.substr(0, spaceIndex);
-    std::string argument = spaceIndex != std::string::npos ? inputLine.substr(spaceIndex + 1) : "";
-        
+    size_t index = inputLine.find("&&");
+    //std::cout<<index<<"\n";
+
+    if (index == std::string::npos)
+    {
+        size_t spaceIndex = inputLine.find(' ');
+        std::string command = inputLine.substr(0, spaceIndex);
+        std::string argument = spaceIndex != std::string::npos ? inputLine.substr(spaceIndex + 1) : "";
 
         // Execute the command if it is found
-    auto commandIt = commands.find(command);
-        
-    if (commandIt != commands.end()) {
+        auto commandIt = commands.find(command);
+
+        if (commandIt != commands.end())
+        {
             commandIt->second(argument);
-    } else {
+        }
+        else
+        {
             std::cout << "Unknown command. Type 'help' for a list of commands.\n";
+        }
     }
+    else if (index != std::string::npos){
+        std::string line1 = inputLine.substr(0, index);
+        std::string line2 = inputLine.substr(index + 3);
+
+        execute_command(line1);
+        execute_command(line2);
+
+    }
+
+    
 
 }
 
