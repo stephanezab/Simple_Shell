@@ -166,10 +166,14 @@ void LS(const std::string &input){
     } else if (pid == 0) {
         // Child process
         // Execute the command using execvp
-        char* argv[] = {const_cast<char*>("ls"), nullptr};
-    
-         execvp("ls", const_cast<char* const*>(argv));
-
+        if (input == ""){
+            char* argv[] = {const_cast<char*>("ls"), nullptr};
+            execvp("ls", const_cast<char* const*>(argv));
+        }
+        else if (input == "-l"){
+            char* argv[] = {const_cast<char*>("ls"), const_cast<char*>("-l"), nullptr};
+            execvp("ls", const_cast<char* const*>(argv));
+        }
         // If execvp returns, it means an error occurred
         std::cerr << "Error executing execvp" << std::endl;
         exit(EXIT_FAILURE); // Exit the child process with an error code
