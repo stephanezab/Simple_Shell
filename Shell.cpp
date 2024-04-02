@@ -106,7 +106,7 @@ void help() {
               << "echo [text]     - Echo the input text\n"
               << "date            - Show the current working directory\n"
               << "pwd             - Show the current path\n"
-              << "ls              - Show all the files in the current directory\n"
+              << "ls (-l)         - Show all the files in the current directory\n"
               << "cat             - Show the content of the file\n"
               << "clear           - clear the command line\n"
               << "cd [directory]  - Move to the desired directory\n"
