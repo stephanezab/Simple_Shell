@@ -251,31 +251,3 @@ void MK(const std::string& input){
         }
     }
 }
-
-void MK(const std::string& input){
-    std::vector<const char*> command = {"rm", input.c_str(), nullptr};
-
-    pid_t pid = fork(); // Create a new process
-
-    if (pid == -1) {
-        // If fork() returns -1, an error occurred
-        std::cerr << "Fork failed" << std::endl;
-        exit(1);
-    } else if (pid == 0) {
-        // Child process
-        // Execute the command using execvp
-        execvp(command[0], const_cast<char* const*>(command.data()));
-
-        // If execvp returns, it means an error occurred
-        std::cerr << "Error executing execvp" << std::endl;
-        exit(EXIT_FAILURE); // Exit the child process with an error code
-    } else {
-        // Parent process
-        int status;
-        waitpid(pid, &status, 0); // Wait for the child process to finish
-
-        if (WIFEXITED(status)) {
-            std::cout << "Child process exited with code " << WEXITSTATUS(status) << std::endl;
-        }
-    }
-}
