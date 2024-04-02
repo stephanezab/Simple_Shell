@@ -166,7 +166,7 @@ void LS(const std::string &input){
     } else if (pid == 0) {
         // Child process
         // Execute the command using execvp
-        char* argv[] = {"ls", nullptr};
+        char* argv[] = {const_cast<char*>("ls"), nullptr};
     
          execvp("ls", const_cast<char* const*>(argv));
 
