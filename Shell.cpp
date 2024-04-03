@@ -25,6 +25,7 @@ void LS(const std::string &input);
 void CD(const std::string& input);
 void cat(const std::string& input);
 void MK(const std::string& input);
+void rm(const std::string& input);
 
 // Command map associating command strings with their corresponding functions
 std::map<std::string, void (*)(const std::string&)> commands = {
@@ -38,9 +39,9 @@ std::map<std::string, void (*)(const std::string&)> commands = {
     {"ls", LS},
     {"cd", CD},
     {"cat", cat},
-    {"mkdir", MK}
+    {"mkdir", MK},
+    {"rm", rm}
 
-    
     // Add more commands here
 };
 
@@ -90,7 +91,7 @@ void execute_command(const std::string& inputLine){
         }
     }
     else if (index != std::string::npos){ // fix this today
-        std::string line1 = inputLine.substr(0, index);
+        std::string line1 = inputLine.substr(0, index - 1);
         std::string line2 = inputLine.substr(index + 3);
 
         execute_command(line1);
@@ -237,6 +238,45 @@ void MK(const std::string& input){
         // Child process
         // Execute the command using execvp
         execvp(command[0], const_cast<char* const*>(command.data()));
+
+        // If execvp returns, it means an error occurred
+        std::cerr << "Error executing execvp" << std::endl;
+        exit(EXIT_FAILURE); // Exit the child process with an error code
+    } else {
+        // Parent process
+        int status;
+        waitpid(pid, &status, 0); // Wait for the child process to finish
+
+        if (WIFEXITED(status)) {
+            std::cout << "Child process exited with code " << WEXITSTATUS(status) << std::endl;
+        }
+    }
+}
+
+void rm(const std::string& input){ 
+    size_t f = input.find("-r");
+    
+
+    pid_t pid = fork(); // Create a new process
+
+    if (pid == -1) {
+        // If fork() returns -1, an error occurred
+        std::cerr << "Fork failed" << std::endl;
+        exit(1);
+    } else if (pid == 0) {
+        // Child process
+        // Execute the command using execvp
+        if (f == std::string::npos){
+            std::vector<const char*> command = {"rm", input.c_str(), nullptr};
+            execvp(command[0], const_cast<char* const*>(command.data()));
+        }
+        else{
+            std::string com2 = input.substr(f,f+2);
+            std::string arg = input.substr(f+3);
+            std::vector<const char*> command = {"rm", com2.c_str(), arg.c_str(), nullptr};
+            execvp(command[0], const_cast<char* const*>(command.data()));
+
+        }     
 
         // If execvp returns, it means an error occurred
         std::cerr << "Error executing execvp" << std::endl;
