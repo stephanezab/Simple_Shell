@@ -20,7 +20,6 @@ void exitCLI();
 void date();
 void PWD();
 void clear();
-//void LS();
 void LS(const std::string &input);
 void CD(const std::string& input);
 void cat(const std::string& input);
@@ -35,7 +34,6 @@ std::map<std::string, void (*)(const std::string&)> commands = {
     {"date", [](const std::string&){ date(); }},
     {"pwd", [](const std::string&){ PWD(); }},
     {"clear", [](const std::string&){ clear(); }},
-    
     {"ls", LS},
     {"cd", CD},
     {"cat", cat},
@@ -70,7 +68,7 @@ int main() {
 
 void execute_command(const std::string& inputLine){
     size_t index = inputLine.find("&&");
-    //std::cout<<index<<"\n";
+
 
     if (index == std::string::npos)
     {
