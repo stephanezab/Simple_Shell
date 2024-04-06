@@ -113,7 +113,7 @@ void help() {
               << "cd [directory]     - Move to the desired directory\n"
               << "mkdir [directory]  - Create the desired directory\n"
               << "rm [file]          - Remove file from directory\n"
-              << "rm -r [file]       - Remove directory\n"
+              << "rm -r [directory]  - Remove directory\n"
               << "exit               - Exit the CLI\n";
 
 }
