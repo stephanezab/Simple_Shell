@@ -299,7 +299,7 @@ void execpp(const std::string& input){
 
     size_t s = input.find(".");
     std::string file = input.substr(0,s);
-    
+
     std::vector<const char*> command = {"g++", input.c_str(),"-o", file.c_str(), nullptr};
 
     pid_t pid = fork(); // Create a new process
@@ -320,7 +320,27 @@ void execpp(const std::string& input){
         // Parent process
         int status;
         waitpid(pid, &status, 0); // Wait for the child process to finish
-
         
+        std::string t = "./";
+        std::string execfile =  t + file;
+
+        std::vector<const char*> command2 = {execfile.c_str(), nullptr};
+
+        pid_t pid2 = fork();
+
+        if(pid2 == -1){
+            std::cerr << "Second Fork failed" << std::endl;
+            exit(1);
+
+        }else if(pid2 == 0){
+            
+            execvp(command2[0], const_cast<char* const*>(command2.data()));
+
+             std::cerr << "Error executing second execvp" << std::endl;
+             exit(EXIT_FAILURE); 
+        }else{
+            int status2;
+            waitpid(pid2, &status2, 0);
+        }
     }
 }
