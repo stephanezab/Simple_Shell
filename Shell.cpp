@@ -320,9 +320,9 @@ void execpp(const std::string& input){
         // Parent process
         int status;
         waitpid(pid, &status, 0); // Wait for the child process to finish
-        
-        std::string t = "./";
-        std::string execfile =  t + file;
+
+        std::string slash = "./";
+        std::string execfile =  slash + file;
 
         std::vector<const char*> command2 = {execfile.c_str(), nullptr};
 
