@@ -283,9 +283,6 @@ void rm(const std::string& input){
         int status;
         waitpid(pid, &status, 0); // Wait for the child process to finish
 
-        if (WIFEXITED(status)) {
-            std::cout << "Child process exited with code " << WEXITSTATUS(status) << std::endl;
-        }
     }
 }
 
