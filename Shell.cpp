@@ -42,7 +42,7 @@ std::map<std::string, void (*)(const std::string&)> commands = {
     {"rm", rm},
     {"g++", execpp}
 
-    // Add more commands here
+    // Add more commands here 
 };
 
 int main() {
