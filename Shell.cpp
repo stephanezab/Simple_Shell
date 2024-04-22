@@ -10,7 +10,7 @@
 #include <vector>
 #include <sys/wait.h>   // For waitpid
 
-
+using namespace std;
 
 // Function prototypes
 void execute_command(const std::string& inputLine);
