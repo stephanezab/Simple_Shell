@@ -140,25 +140,6 @@ void clear(){
     system("clear");
 }
 
-// void LS(){
-//     DIR *dp;    // holds current directory
-//     dirent *d;  // holds the directory and file info inside current directory 
-//     filesystem::path cwd = filesystem::current_path();
-//     string cwdString = cwd.string(); // Convert path to string
-
-
-//     if(dp = opendir(cwdString.c_str())){
-//         // read directory dp and send info to d
-//         while(d = readdir(dp)){
-//             if (d->d_name[0] != '.' ){
-//                 cout<<d->d_name<<"\n";
-//             } 
-            
-//         }
-//     }
-
-// }
-
 void LS(const string &input){
     
 
