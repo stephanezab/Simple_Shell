@@ -115,6 +115,7 @@ void help() {
               << "mkdir [directory]  - Create the desired directory\n"
               << "rm [file]          - Remove file from directory\n"
               << "rm -r [directory]  - Remove directory\n"
+              << "g++ [file.cpp]     - Compile and Execute c++ code"
               << "exit               - Exit the CLI\n";
 
 }
