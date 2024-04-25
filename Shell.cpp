@@ -42,7 +42,6 @@ map<string, void (*)(const string&)> commands = {
     {"rm", rm},
     {"g++", execpp}
 
-    // Add more commands here 
 };
 
 int main() {
