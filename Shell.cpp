@@ -169,9 +169,7 @@ void LS(const string &input){
         int status;
         waitpid(pid, &status, 0); // Wait for the child process to finish
 
-        // if (WIFEXITED(status)) {
-        //     cout << "Child process exited with code " << WEXITSTATUS(status) << endl;
-        // }
+       
     }
 }
 
