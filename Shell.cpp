@@ -89,7 +89,7 @@ void execute_command(const string& inputLine){
             cout << "Unknown command. Type 'help' for a list of commands.\n";
         }
     }
-    else if (index != string::npos){ // fix this today
+    else if (index != string::npos){ 
         string line1 = inputLine.substr(0, index - 1);
         string line2 = inputLine.substr(index + 3);
 
