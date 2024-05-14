@@ -6,8 +6,8 @@ Simple_Shell is an project to demonstrate the basic workings of a Unix shell by 
 
 ## Features
 - **Command Execution**: Execute common Unix commands like `ls`, `pwd`, `date`, `cat`, `clear`,`exit` and more.
-- **Built-in Commands**: Includes support for `cd` and to change directories within the shell.
-- **Compile Programs**: Ability to compile and execute C++ programs directly within the shell using only`g++ program.cpp`.
+- **Built-in Commands**: Includes support for `cd` to change directories within the shell.
+- **Compile Programs**: Ability t compile and execute C++ programs directly within the shell using only`g++ program.cpp`.
 
 ## How to use
  
